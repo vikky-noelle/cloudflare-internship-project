@@ -1,15 +1,24 @@
-// objects to use
-const someJSONToSend = {
-  results: ['default data to send'],
-  errors: null,
-  msg: 'I sent this to the fetch',
-}
-const someDefaultJSONToRespond = {
-  results: ['default result'],
-  errors: null,
-  msg: 'success in sending a POST',
-}
+// Html rewriting
 
+class ElementHandler {
+  element(element) {
+    // An incoming element, such as `div`
+    if(element.tagName=="h1"){
+      element.after("Thank You!")
+    }
+    if(element.tagName=="p"){
+      element.setInnerContent("The exercise was a bit hard but it was really fun! My name is vikky and thank you for having me.    (Clear the cookie to load other url element)")
+    }
+    if(element.tagName=="a"){
+      element.setInnerContent("Click here to listen to james bay")
+      element.setAttribute("href", "https://www.youtube.com/watch?v=GsPq9mzFNGY")
+    }
+    if(element.tagName=="title"){
+      element.setInnerContent("variable 1 changed")
+    }
+    // console.log(`Incoming element: ${}`)
+  }
+}
 /**
  * gatherResponse awaits and returns a response body as a string.
  * Use await gatherResponse(..) in an async function to get the response body
@@ -17,6 +26,7 @@ const someDefaultJSONToRespond = {
  */
 
 let url = ""
+let url_array = []
 
 // for parsing the data
 async function gatherResponse(response) {
@@ -26,6 +36,13 @@ async function gatherResponse(response) {
   if (contentType.includes('application/json')) {
     console.log("json response found")
     const body = await response.json()
+
+    // saving the variables in an array
+    for(var i in body["variants"]){
+      url_array.push(body["variants"][i])
+      // console.log(i)
+    }
+    // console.log(url_array)
     // random function gurantees 50% chance of 1 or 0
     url = body["variants"][Math.floor(Math.random() * (2 - 0)) + 0]
 
@@ -112,13 +129,14 @@ addEventListener('fetch', async event => {
   event.respondWith(
     (async function() {
       const body = await respBody
-      
+      // array for urls
+      console.log("array variable url values - "+url_array)
       let response = new Response(body.content, init)
       if(cookie==null){
         console.log("making cookie")
         response.headers.append('Set-Cookie', `url_val=${body.url}; path=/`)
       }
-      return response
+      return new HTMLRewriter().on('*', new ElementHandler()).transform(response)
     })()
   )
 })
