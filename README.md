@@ -33,8 +33,10 @@ For each variant page, there are a number of items on the page that can be custo
 - `p#description`: the description paragraph on the page. By default, this displays the text "This is variant X of the take home project!".
 - `a#url`: a Call to Action link with strong emphasis on the page. Try changing this to a URL of your choice, such as your personal website, and make sure to update the text "Return to cloudflare.com" as well!
 
-This can be done using the [HTMLRewriter](https://developers.cloudflare.com/workers/reference/apis/html-rewriter/) API built into the Workers runtime, or using simple text replacement.
-
 ### 5. Persisting variants
 
 If a user visits the site and receives one of the two URLs, persist which URL is chosen in a cookie so that they always see the same variant when they return to the application. A cookie would be a great way to implement this!
+
+
+## Deployed Link
+https://vikky-noelle-cloudflare.vikky-noelle.workers.dev/
