@@ -14,7 +14,7 @@ class ElementHandler {
       element.setAttribute("href", "https://www.youtube.com/watch?v=GsPq9mzFNGY")
     }
     if(element.tagName=="title"){
-      element.setInnerContent("variable 1 changed")
+      element.setInnerContent("variable changed")
     }
     // console.log(`Incoming element: ${}`)
   }
