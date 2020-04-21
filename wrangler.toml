@@ -1,6 +1,6 @@
 name = "vikky-noelle-cloudflare"
 type = "javascript"
-account_id = ""
+account_id = "e7a7c7926b48fa9da07235b1d2c2b310"
 workers_dev = true
 route = ""
 zone_id = ""
